@@ -1,0 +1,289 @@
+<div class="header-main">
+  <app-header></app-header>
+</div>
+<div>
+  <H1 class="title">Profile</H1>
+</div>
+<div class="float-container">
+  <div class="info">
+    <div>
+      <h1>{{ candidatedata.id }}</h1>
+    </div>
+
+    <div class="green">
+      <img src="{{ candidatedata.img }}" alt="images" />
+      <div>
+        <button
+          class="edit"
+          (click)="onClickImg()"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+        >
+          Edit Image
+        </button>
+        <button
+          class="edit"
+          (click)="onClickEdit()"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+        >
+          Edit Profile
+        </button>
+      </div>
+    </div>
+
+    <div class="float-child info">
+      <div class="blue">
+        <p>
+          I am {{ candidatedata.FName }} and i am
+          {{ candidatedata.age }} and<br />
+          you can send your emails to {{ candidatedata.email }}<br />
+          i live at {{ candidatedata.homeAddress1 }} i like
+          {{ candidatedata.interests }}
+        </p>
+        <button class="agbutton">I Agree</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="modal" id="myModal">
+      <div class="modal-dialog" style="display: table">
+        <div class="modal-content" style="width: max-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Register</h4>
+          </div>
+
+          <div class="modal-body">
+            <form
+              #userlogin="ngForm"
+              [formGroup]="EditForm"
+              class="row"
+              (ngSubmit)="onClickSubmit()"
+            >
+              <div class="col">
+                <div>
+                  <h5>{{ candidatedata.id }}</h5>
+                  <div class="col">
+                    <div
+                      [innerHtml]="msg"
+                      *ngIf="msg"
+                      style="color: rgba(255, 128, 0, 0.774)"
+                    ></div>
+                    <div>
+                      <img
+                        [src]="url"
+                        *ngIf="url"
+                        style="height: 10em; width: 10em"
+                      />
+                    </div>
+                    <p>
+                      Upload Profile Photo
+                      <input
+                        type="file"
+                        (change)="selectFile($event)"
+                        [(ngModel)]="candidatedata.img"
+                      />
+                    </p>
+                  </div>
+                  <label for="firstName">FirstName:</label>
+                  <div class="row">
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="First name"
+                        formControlName="FName"
+                        [(ngModel)]="candidatedata.FName"
+                      />
+                    </div>
+                    <label for="lastName">lastName:</label>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Last name"
+                        formControlName="LName"
+                        [(ngModel)]="candidatedata.LName"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="EditForm.get('FName')?.hasError('required')"
+                  ></div>
+                  <div *ngIf="EditForm.get('FName')?.hasError('pattern')">
+                    Only alphabetic characters are allowed
+                  </div>
+                  <div *ngIf="EditForm.get('FName')?.hasError('maxlength')">
+                    Maximum length is 20 characters
+                  </div>
+                  <div
+                    *ngIf="EditForm.get('LName')?.hasError('required')"
+                  ></div>
+                  <div *ngIf="EditForm.get('LName')?.hasError('pattern')">
+                    Only alphabetic characters are allowed
+                  </div>
+                  <div *ngIf="EditForm.get('LName')?.hasError('maxlength')">
+                    Maximum length is 20 characters
+                  </div>
+                </div>
+                <div>
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input
+                      type="email"
+                      id="email"
+                      formControlName="email"
+                      class="form-control"
+                      placeholder="Email"
+                      [(ngModel)]="candidatedata.email"
+                    />
+                    <div *ngIf="EditForm.get('email')?.hasError('required')">
+                      Email is required
+                    </div>
+                    <div *ngIf="EditForm.get('email')?.hasError('pattern')">
+                      Email is invalid
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input
+                      type="range"
+                      id="age"
+                      formControlName="age"
+                      min="18"
+                      max="100"
+                      class="form-range"
+                      [(ngModel)]="candidatedata.age"
+                    />
+                    {{ EditForm.get("age")?.value }}
+                    <div *ngIf="EditForm.get('age')?.hasError('required')">
+                      Age is required
+                    </div>
+                    <div *ngIf="EditForm.get('age')?.hasError('min')">
+                      Minimum age is 18
+                    </div>
+                    <div *ngIf="EditForm.get('age')?.hasError('max')">
+                      Maximum age is 100
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="interests">Interests:</label>
+                    <input
+                      type="text"
+                      id="interests"
+                      formControlName="interests"
+                      class="form-control"
+                      [(ngModel)]="candidatedata.interests"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="addressType">Address Type:</label>
+                    <select
+                      id="addressType"
+                      formControlName="addressType"
+                      class="form-control"
+                      [(ngModel)]="candidatedata.addressType"
+                    >
+                      <option value="" disabled>Select Address Type</option>
+                      <option value="home">Home</option>
+                      <option value="company">Company</option>
+                    </select>
+                    <div
+                      *ngIf="EditForm.get('addressType')?.hasError('required')"
+                    >
+                      Address Type is required
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="EditForm.get('addressType')?.value === 'company'"
+                    class="form-group"
+                  >
+                    <div>
+                      <label for="companyAddress1">Company Address 1:</label>
+                      <input
+                        type="text"
+                        id="companyAddress1"
+                        formControlName="companyAddress1"
+                        class="form-control"
+                        [(ngModel)]="candidatedata.companyAddress1"
+                      />
+                      <div
+                        *ngIf="
+                          EditForm.get('companyAddress1')?.hasError('required')
+                        "
+                      >
+                        Address 1 is required
+                      </div>
+                    </div>
+                    <div>
+                      <label for="companyAddress2">Company Address 2:</label>
+                      <input
+                        type="text"
+                        id="companyAddress2"
+                        formControlName="companyAddress2"
+                        class="form-control"
+                        [(ngModel)]="candidatedata.companyAddress2"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="EditForm.get('addressType')?.value === 'home'"
+                    class="form-group"
+                  >
+                    <div>
+                      <label for="homeAddress1">Home Address 1:</label>
+                      <input
+                        type="text"
+                        id="homeAddress1"
+                        formControlName="homeAddress1"
+                        class="form-control"
+                        [(ngModel)]="candidatedata.homeAddress1"
+                      />
+                      <div
+                        *ngIf="
+                          EditForm.get('homeAddress1')?.hasError('required')
+                        "
+                      >
+                        Home Address is required
+                      </div>
+                    </div>
+                    <div>
+                      <label for="homeAddress2">Home Address 2:</label>
+                      <input
+                        name=""
+                        type="text"
+                        id="homeAddress2"
+                        formControlName="homeAddress2"
+                        class="form-control"
+                        [(ngModel)]="candidatedata.homeAddress2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              value="submit"
+              (click)="onClickSubmit()"
+              data-bs-dismiss="modal"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,311 @@
+<div class="container">
+  <button
+    type="button"
+    class="regbutton"
+    data-bs-toggle="modal"
+    data-bs-target="#myModal"
+  >
+    Register
+  </button>
+</div>
+<br />
+<br />
+<div>
+  <div class="modal" id="myModal">
+    <div class="modal-dialog" style="display: table">
+      <div class="modal-content" style="width: max-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Register</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div *ngIf="successMessage" class="success-message">
+            <span>{{ successMessage }}</span>
+            <button class="close-button" (click)="closeMessage()">X</button>
+          </div>
+
+          <form
+            action=""
+            #userlogin="ngForm"
+            [formGroup]="registrationForm"
+            class="row"
+            (ngSubmit)="onClickSubmit()"
+          >
+            <div class="col">
+              <div [innerHtml]="msg" *ngIf="msg" style="color: red"></div>
+              <div>
+                <img
+                  [src]="url"
+                  *ngIf="url"
+                  style="height: 10em; width: 10em"
+                />
+              </div>
+
+              <p>
+                Upload Profile Photo
+                <input
+                  formControlName="Image"
+                  type="file"
+                  (change)="selectFile($event)"
+                />
+              </p>
+            </div>
+            <div class="col">
+              <div>
+                <div class="row">
+                  <div class="col-7">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="First name"
+                      formControlName="FName"
+                    />
+                  </div>
+
+                  <div class="col-5">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="Last name"
+                      formControlName="LName"
+                    />
+                  </div>
+                </div>
+                <div
+                  *ngIf="registrationForm.get('FName')?.hasError('required')"
+                ></div>
+                <div *ngIf="registrationForm.get('FName')?.hasError('pattern')">
+                  Only alphabetic characters are allowed
+                </div>
+                <div
+                  *ngIf="registrationForm.get('FName')?.hasError('maxlength')"
+                >
+                  Maximum length is 20 characters
+                </div>
+                <div
+                  *ngIf="registrationForm.get('LName')?.hasError('required')"
+                ></div>
+                <div *ngIf="registrationForm.get('LName')?.hasError('pattern')">
+                  Only alphabetic characters are allowed
+                </div>
+                <div
+                  *ngIf="registrationForm.get('LName')?.hasError('maxlength')"
+                >
+                  Maximum length is 20 characters
+                </div>
+              </div>
+              <div>
+                <div class="form-group addmail">
+                  <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    class="form-control form-control-sm"
+                    placeholder="Email"
+                  />
+                  <!-- <div
+                      *ngIf="registrationForm.get('email')?.hasError('required')"
+                    >
+                      Email is required
+                    </div> -->
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      registrationForm.controls['email'].dirty &&
+                      registrationForm.hasError('required', 'email')
+                    "
+                  >
+                    Email is required!
+                  </span>
+                  <!-- <div
+                      *ngIf="registrationForm.get('email')?.hasError('pattern')"
+                    >
+                      Email Error
+                    </div> -->
+                </div>
+                <div class="form-group">
+                  <div class="col">
+                    <input
+                      type="tel"
+                      class="form-control form-control-sm"
+                      placeholder="Phone Number"
+                      formControlName="PhoneNumber"
+                    />
+                    <span
+                      class="text-danger"
+                      *ngIf="
+                        registrationForm.controls['PhoneNumber'].dirty &&
+                        registrationForm.hasError('required', 'PhoneNumber')
+                      "
+                    >
+                      Phone Number required!
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <div class="ageRange">
+                      <label for="age">Age:</label>
+                      <input
+                        type="range"
+                        id="age"
+                        formControlName="age"
+                        min="18"
+                        max="80"
+                        class="form-range"
+                      />
+                    </div>
+
+                    {{ registrationForm.get("age")?.value }}
+                    <div
+                      *ngIf="registrationForm.get('age')?.hasError('required')"
+                    >
+                      <!-- Age is required -->
+                    </div>
+                    <div *ngIf="registrationForm.get('age')?.hasError('min')">
+                      Minimum age is 18
+                    </div>
+                    <div *ngIf="registrationForm.get('age')?.hasError('max')">
+                      Maximum age is 100
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option value="select">Select your country</option>
+                      <option value="india">INDIA</option>
+                      <option value="nepal">NEPAL</option>
+                      <option value="uk">UK</option>
+                      <option value="usa">USA</option>
+                      <option value="sriLanka">SRI LANKA</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin: 5px 0px">
+                    <div>
+                      <label for="interests">Enter your interests:</label>
+                      <input type="text" class="form-control" id="interests" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <select
+                    id="addressType"
+                    formControlName="addressType"
+                    class="form-control form-control-sm"
+                  >
+                    <option value="" disabled>Select Address Type</option>
+                    <option value="home">Home</option>
+                    <option value="company">Company</option>
+                  </select>
+                  <div
+                    *ngIf="
+                      registrationForm.get('addressType')?.hasError('required')
+                    "
+                  >
+                    <!-- Address Type is required -->
+                  </div>
+                </div>
+                <div
+                  *ngIf="
+                    registrationForm.get('addressType')?.value === 'company'
+                  "
+                  class="form-group"
+                >
+                  <div>
+                    <label for="companyAddress1">Company Address 1:</label>
+                    <input
+                      type="text"
+                      id="companyAddress1"
+                      formControlName="companyAddress1"
+                      class="form-control"
+                    />
+                    <div
+                      *ngIf="
+                        registrationForm
+                          .get('companyAddress1')
+                          ?.hasError('required')
+                      "
+                    >
+                      Address 1 is required
+                    </div>
+                  </div>
+                  <div>
+                    <label for="companyAddress2">Company Address 2:</label>
+                    <input
+                      type="text"
+                      id="companyAddress2"
+                      formControlName="companyAddress2"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div
+                  *ngIf="registrationForm.get('addressType')?.value === 'home'"
+                  class="form-group"
+                >
+                  <div>
+                    <label for="homeAddress1">Home Address 1:</label>
+                    <input
+                      type="text"
+                      id="homeAddress1"
+                      formControlName="homeAddress1"
+                      class="form-control"
+                    />
+                    <div
+                      *ngIf="
+                        registrationForm
+                          .get('homeAddress1')
+                          ?.hasError('required')
+                      "
+                    >
+                      Home Address is required
+                    </div>
+                  </div>
+                  <div>
+                    <label for="homeAddress2">Home Address 2:</label>
+                    <input
+                      name=""
+                      type="text"
+                      id="homeAddress2"
+                      formControlName="homeAddress2"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="gridCheck"
+                    />
+                    <label class="form-check-label" for="gridCheck">
+                      subscribe to Newsletter
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-success"
+            value="submit"
+            (click)="onClickSubmit()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

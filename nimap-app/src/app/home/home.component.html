@@ -1,0 +1,37 @@
+<div class="header">
+  <div class="container">
+    <app-header></app-header>
+
+    <div class="header-bottom">
+      <h1>l'm looking for..</h1>
+      <form>
+        <input
+          type="text"
+          value="Enter a Job Description"
+          onfocus="this.value = '';"
+          onblur="if (this.value = 'Enter a Job Description') {this.value = 'Enter a Job Description';}"
+        />
+        <input type="submit" class="ser" value="Search" /><br />
+        <label class="checkbox">
+          <input type="checkbox" value="checked" />
+          Full Time
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="checked" />
+          Part Time /Casual /Freelance
+        </label>
+        <select name="city">
+          <option value="select your location">Select your location</option>
+          <option value="mumbai">Mumbai</option>
+          <option value="pune">Pune</option>
+          <option value="bengalore">Bengalore</option>
+        </select>
+      </form>
+    </div>
+
+    <pre></pre>
+    <div><app-register-button></app-register-button></div>
+  </div>
+
+  <app-newsletter></app-newsletter>
+</div>

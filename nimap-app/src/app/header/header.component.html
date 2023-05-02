@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="logo">
+    <img src="../../assets/images/NiMap.jpg" alt="NiMAP" />
+  </div>
+  <div class="MenuList">
+    <ul>
+      <li><a class="active" routerLink="">HOME</a></li>
+      <li><a routerLink="profile">PROFILE</a></li>
+      <li><a href="#">ABOUT US</a></li>
+      <li><a href="#">JOBS</a></li>
+      <li><a href="#">CLIENTS</a></li>
+      <li><a href="#">EMPOLOYERS</a></li>
+      <li><a href="#">CONTACT US</a></li>
+    </ul>
+    <script>
+      $("span.menu").click(function () {
+        $("ul.res").slideToggle("slow", function () {});
+      });
+    </script>
+  </div>
+</div>

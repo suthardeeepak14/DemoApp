@@ -1,0 +1,76 @@
+.header-main {
+  background-color: deepskyblue;
+}
+.title {
+  height: 50px;
+  margin: 2em 2em 2em 4em;
+  color: deepskyblue;
+}
+
+.profile {
+  margin: 0em 0em 4em 4em;
+  background: #e6dbdb;
+  height: 10em;
+  width: 10em;
+}
+.float-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.info {
+  display: flex;
+}
+.edit {
+  width: 100px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1em;
+  font-weight: 300;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  background: #d7e606;
+  color: #000000;
+  cursor: pointer;
+  margin-left: 3em;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+.agbutton {
+  width: 30%;
+  padding: 1em;
+  font-size: 1em;
+  font-weight: 300;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  background: #00ff4c;
+  color: #fff;
+  cursor: pointer;
+  font-style: italic;
+  margin-bottom: 2em;
+  margin-top: 10em;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+.p_container {
+  margin: 4em 10em;
+}
+.float-container {
+  padding: 5em;
+}
+
+.float-child {
+  width: 50%;
+  float: left;
+  padding: 20px;
+  padding-left: 8em;
+}
+p {
+  text-size-adjust: 10;
+}

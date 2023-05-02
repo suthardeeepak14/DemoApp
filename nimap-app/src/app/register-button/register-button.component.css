@@ -1,0 +1,59 @@
+.container {
+  text-align: center;
+  padding-top: 6em;
+}
+.regbutton {
+  width: 14%;
+  padding: 1em;
+  font-size: 1em;
+  font-weight: 300;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: #4acaff;
+  color: #fff;
+  cursor: pointer;
+  border-bottom: 5px solid #0cadf3;
+  margin-bottom: 2em;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.ageRange {
+  display: flex;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.close-button {
+  font-size: 14px;
+  color: #212529;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+select {
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #c7c7c7;
+  font-style: italic;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}

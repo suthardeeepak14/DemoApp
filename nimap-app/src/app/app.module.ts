@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterButtonComponent } from './register-button/register-button.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ProfileComponent } from './profile/profile.component';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
+    TagInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

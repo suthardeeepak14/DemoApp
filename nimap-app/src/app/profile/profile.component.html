@@ -107,14 +107,17 @@
                       />
                     </div>
                   </div>
-                  <div
-                    *ngIf="EditForm.get('FName')?.hasError('required')"
-                  ></div>
+                  <div *ngIf="EditForm.get('FName')?.hasError('required')">
+                    First Name is required.
+                  </div>
                   <div *ngIf="EditForm.get('FName')?.hasError('pattern')">
                     Only alphabetic characters are allowed
                   </div>
                   <div *ngIf="EditForm.get('FName')?.hasError('maxlength')">
                     Maximum length is 20 characters
+                  </div>
+                  <div *ngIf="EditForm.get('FName')?.hasError('minlength')">
+                    Maximum length is 3 characters
                   </div>
                   <div
                     *ngIf="EditForm.get('LName')?.hasError('required')"

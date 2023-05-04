@@ -3,6 +3,7 @@ import { OnInit } from '@angular/core';
 import { RegisterService } from '../register.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -28,13 +29,15 @@ export class ProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private candidate: RegisterService,
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {}
   candidatedata: any;
 
   ngOnInit() {
     this.EditForm = this.formBuilder.group({
       Image: ['', Validators.required],
+      img: ['', Validators.required],
 
       FName: [
         '',
@@ -42,6 +45,7 @@ export class ProfileComponent implements OnInit {
           Validators.required,
           Validators.pattern('[a-zA-Z ]*'),
           Validators.maxLength(20),
+          Validators.minLength(3),
         ],
       ],
       LName: [
@@ -54,20 +58,30 @@ export class ProfileComponent implements OnInit {
       ],
       email: [
         '',
-        Validators.required,
-        Validators.pattern(
-          "[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*"
-        ),
+        [
+          Validators.required,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ],
       ],
-      age: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
+      PhoneNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[0-9]{10}'),
+          // Validators.pattern('[a-zA-Z ]*'),
+          Validators.maxLength(10),
+        ],
+      ],
+      age: ['', [Validators.required, Validators.min(18), Validators.max(80)]],
       interests: [''],
       addressType: ['', Validators.required],
-      companyAddress1: [''],
-      companyAddress2: [''],
-      homeAddress1: [''],
-      homeAddress2: [''],
+      companyAddress1: ['', Validators.required],
+      companyAddress2: ['', Validators.required],
+      homeAddress1: ['', Validators.required],
+      homeAddress2: ['', Validators.required],
     });
-    this.http.get('http://localhost:3000/candidate/1').subscribe((data) => {
+    let id = this.route.snapshot.paramMap.get('id');
+    this.http.get(`http://localhost:3000/candidate/${id}`).subscribe((data) => {
       this.candidatedata = data;
     });
   }
@@ -122,11 +136,17 @@ export class ProfileComponent implements OnInit {
   }
 
   onClickEdit() {
-    this.http.get('http://localhost:3000/candidate/1').subscribe((data) => {
-      this.candidatedata = data;
+    let id = this.route.snapshot.paramMap.get('id');
+    this.http.get(`http://localhost:3000/candidate/${id}`).subscribe((data) => {
       this.url = this.candidatedata.img;
-      console.log(data);
+      this.candidatedata = data;
     });
+
+    // this.http.get('http://localhost:3000/candidate/1').subscribe((data) => {
+    //   this.candidatedata = data;
+    //   this.url = this.candidatedata.img;
+    //   console.log(data);
+    // });
   }
   onClickImg() {
     this.http.get('http://localhost:3000/candidate/1').subscribe((data) => {

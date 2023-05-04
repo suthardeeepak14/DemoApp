@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { RegisterService } from '../register.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-button',
   templateUrl: './register-button.component.html',
@@ -11,11 +12,13 @@ export class RegisterButtonComponent {
   successMessage: string = '';
 
   registrationForm!: FormGroup;
+  imageValid: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private candidate: RegisterService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -41,18 +44,29 @@ export class RegisterButtonComponent {
       ],
       email: [
         '',
-        Validators.required,
-        Validators.pattern(
-          "[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*"
-        ),
+        [
+          Validators.required,
+          Validators.pattern(
+            '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[.]+[c]+[o]+[m]+$'
+          ),
+        ],
       ],
-      age: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
+      PhoneNumber: [
+        '',
+        [
+          Validators.required,
+          // Validators.pattern('[0-9]{10}'),
+          // Validators.pattern('[a-zA-Z ]*'),
+          Validators.maxLength(10),
+        ],
+      ],
+      age: ['', [Validators.required, Validators.min(18), Validators.max(80)]],
       interests: [''],
       addressType: ['', Validators.required],
-      companyAddress1: [''],
-      companyAddress2: [''],
-      homeAddress1: [''],
-      homeAddress2: [''],
+      companyAddress1: ['', Validators.required],
+      companyAddress2: ['', Validators.required],
+      homeAddress1: ['', Validators.required],
+      homeAddress2: ['', Validators.required],
     });
   }
 
@@ -74,9 +88,11 @@ export class RegisterButtonComponent {
 
     if (event.target.files[0].size > 2048 * 1024) {
       this.msg = 'Image size should be less than 2 MB';
+      this.imageValid = false;
       return;
     }
 
+    this.imageValid = true;
     var reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
 
@@ -103,6 +119,7 @@ export class RegisterButtonComponent {
     if (payload != null) {
       this.candidate.candidate(payload).subscribe(
         (result) => {
+          this.router.navigate([`/profile/${result.id}`]);
           console.log('Form data sent to server');
           console.log(result);
         },
